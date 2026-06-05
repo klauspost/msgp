@@ -38,12 +38,12 @@ type FileSet struct {
 	AllowMapShims bool                 // Allow map keys to be shimmed (default true)
 	AllowBinMaps  bool                 // Allow maps with binary keys to be used (default false)
 	AutoMapShims  bool                 // Automatically shim map keys of builtin types(default false)
-	ArrayLimit      uint32               // Maximum array/slice size allowed during deserialization
-	MapLimit        uint32               // Maximum map size allowed during deserialization
-	MarshalLimits   bool                 // Whether to enforce limits during marshaling
-	LimitPrefix     string               // Unique prefix for limit constants to avoid collisions
-	NoDuplicates    bool                 // Reject duplicate keys for all types
-	NoDupTypes      map[string]struct{}   // Reject duplicate keys for specific types only
+	ArrayLimit    uint32               // Maximum array/slice size allowed during deserialization
+	MapLimit      uint32               // Maximum map size allowed during deserialization
+	MarshalLimits bool                 // Whether to enforce limits during marshaling
+	LimitPrefix   string               // Unique prefix for limit constants to avoid collisions
+	NoDuplicates  bool                 // Reject duplicate keys for all types
+	NoDupTypes    map[string]struct{}  // Reject duplicate keys for specific types only
 
 	tagNames   []string // tags to read field names from, in priority order
 	pointerRcv bool     // generate with pointer receivers.
@@ -541,7 +541,7 @@ func (fs *FileSet) getField(f *ast.Field) []gen.StructField {
 				switch tag {
 				case "extension":
 					extension = true
-				case "flatten":
+				case "flatten", "inline":
 					flatten = true
 				default:
 					// Check for limit=N format
